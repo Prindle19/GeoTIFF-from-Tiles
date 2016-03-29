@@ -1,4 +1,4 @@
-# GeoTIFF-from-Tiles
+GeoTIFF-from-Tiles
 
 Start with Ubuntu 14.04 LTS
 
