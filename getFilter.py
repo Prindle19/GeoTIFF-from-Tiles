@@ -31,7 +31,7 @@ def main(args):
 		usage()
 		return False
 	tile_size = 256
-	zoomlevels = [20]
+	zoomlevels = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 	tms_scheme = False
 	srs = osr.SpatialReference()
 	srs.SetWellKnownGeogCS("WGS84")
@@ -52,6 +52,7 @@ def main(args):
 			tm = TilesManager(tiles_dir="/tmp",tiles_url="http://{z}/{x}/{y}",cache=False)
 			tiles = tm.tileslist(bbox=(ULLon, LRLat, LRLon, ULLat),zoomlevels=zoomlevels)
 			for the_tile in tiles:
+				print the_tile[0]
 				# tilecontent = tm.tile(the_tile)
 				projection = proj.GoogleProjection(tile_size, zoomlevels, tms_scheme)
 				tileBBOX = projection.tile_bbox(the_tile)
