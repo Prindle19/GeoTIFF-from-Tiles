@@ -51,7 +51,7 @@ def main(args):
 		LRLat = the_env[2]
 		id = str(g)
 		print  id + " " + str(g+1) + " of " + str(totalImages)
-		tm = TilesManager(tiles_dir="/tmp",tiles_url="http://storage.googleapis.com/birmingham-lasvegas-sample-imagery-pyramid-tiles/nv_lasvegas_20150323/{z}/{x}/{y}")
+		tm = TilesManager(tiles_dir="/tmp",tiles_url="https://tile-live.appspot.com/getTile/?z={z}&x={x}&y={y}&layer=derivative&redirect=false")
 		tiles = tm.tileslist(bbox=(ULLon, LRLat, LRLon, ULLat),zoomlevels=zoomlevels)
 		x = 0
 		y = 0
@@ -86,7 +86,10 @@ def main(args):
 					os.system('rm ' + fileRoot + '.vrt')
 					os.system('mv ' + fileRoot + '-4.tiff ' + fileName)
 				ds = None
-				os.system('gdalwarp ' + fileName + ' clipped-' + fileRoot + '.tiff' + ' -cutline AOIs.shp -cwhere "FPrint = \'' + the_ID + '\'"')
+
+				# warpString = 'gdalwarp ' + fileName + ' clipped-' + fileRoot + '.tiff' + ' -cutline AOIs.shp -cwhere "id = \'' + str(the_ID) + '\'"'
+				# print warpString
+				os.system('gdalwarp ' + fileName + ' clipped-' + fileRoot + '.tiff' + ' -cutline AOIs.shp -cwhere "id = \'' + str(the_ID) + '\'"')
 				os.system('rm ' + fileName)
 				os.system('mv clipped-' + fileRoot + '.tiff ' + fileName)
 			except RuntimeError as ex:
@@ -114,7 +117,6 @@ def main(args):
 			os.system('gdal_translate -of GTiff -projwin ' + str(ULLon) + " " + str(ULLat) + " " + str(LRLon) + " " + str(LRLat) + ' mosaic.vrt ' + id + ".tiff")
 			os.system('rm ' + id +'-*.tiff && rm *.vrt')
 			
-
 		g += 1
 	os.system('ls *.tiff > filelist')
 	os.system('tar -zcvf GoogleImages.tar.gz $(cat filelist)')
