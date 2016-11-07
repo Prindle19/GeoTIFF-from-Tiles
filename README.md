@@ -23,9 +23,9 @@ mkdir GeoTIFF
 
 cd GeoTIFF
 
-nano getGeoTIFF.py
+nano getGeoTIFFMBTiles.py
 
-(paste in code from getGeoTIFF.py)
+(paste in code from getGeoTIFFMBTiles.py)
 
 wget https://storage.googleapis.com/tile-api-geotiff/AOIs.zip
 
@@ -33,5 +33,5 @@ unzip AOIs.zip
 
 rm AOIs.zip
 
-python getGeoTIFF.py AOIs.shp
+python getGeoTIFFMBTiles.py AOIs.shp
 
